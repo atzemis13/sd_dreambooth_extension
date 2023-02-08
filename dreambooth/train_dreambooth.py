@@ -26,7 +26,6 @@ from extensions.sd_dreambooth_extension.dreambooth.db_bucket_sampler import Buck
 from extensions.sd_dreambooth_extension.dreambooth.db_config import DreamboothConfig
 from extensions.sd_dreambooth_extension.dreambooth.db_optimization import UniversalScheduler
 from extensions.sd_dreambooth_extension.dreambooth.db_shared import status
-from extensions.sd_dreambooth_extension.dreambooth.db_webhook import send_training_update
 from extensions.sd_dreambooth_extension.dreambooth.diff_to_sd import compile_checkpoint
 from extensions.sd_dreambooth_extension.dreambooth.finetune_utils import EMAModel, generate_classifiers, \
     generate_dataset, TrainResult, CustomAccelerator, mytqdm, encode_hidden_state
@@ -772,7 +771,6 @@ def main(args: DreamboothConfig, use_txt2img: bool = True) -> TrainResult:
                             last_prompts.append(log_name)
                         status.sample_prompts = last_prompts
                         status.current_image = last_samples
-                        send_training_update(last_samples, args.model_name, last_prompts, global_step, args.revision)
                         pbar.update()
                         del log_images
                     except:
